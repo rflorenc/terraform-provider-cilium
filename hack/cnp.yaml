@@ -1,0 +1,21 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-ingress
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+        - all
+    - fromEndpoints:
+        - {}
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace.labels.team: one
+      toPorts:
+        - ports:
+            - port: "8080"
+        - ports:
+            - port: "8200"
+  egress:
+    - {}

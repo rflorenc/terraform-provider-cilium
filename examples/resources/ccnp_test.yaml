@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: mypod-ingress
+spec:
+  endpointSelector:
+    matchLabels:
+      example: mypod
+      k8s:io.kubernetes.pod.namespace: netpols
+  ingress:
+  - fromEndpoints:
+    - {}
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
