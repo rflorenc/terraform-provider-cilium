@@ -34,6 +34,9 @@ func (d *ciliumNodeDataSource) Metadata(_ context.Context, req datasource.Metada
 func (d *ciliumNodeDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
+			"id": schema.StringAttribute{
+				Computed: true,
+			},
 			"ciliumnodes": schema.ListNestedAttribute{
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
@@ -85,6 +88,8 @@ func (d *ciliumNodeDataSource) Read(ctx context.Context, req datasource.ReadRequ
 		state.CiliumNodes = append(state.CiliumNodes, ciliumNodeState)
 	}
 
+	state.ID = types.StringValue("placeholder")
+
 	diags := resp.State.Set(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -105,6 +110,7 @@ func (d *ciliumNodeDataSource) Configure(_ context.Context, req datasource.Confi
 // coffeesDataSourceModel maps the data source schema data.
 type ciliumNodeDataSourceModel struct {
 	CiliumNodes []ciliumNodeModel `tfsdk:"ciliumnodes"`
+	ID          types.String      `tfsdk:"id"`
 }
 
 // ciliumNodeModel maps ciliumnodes schema data.

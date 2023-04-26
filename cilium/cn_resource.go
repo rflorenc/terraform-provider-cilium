@@ -12,8 +12,6 @@ import (
 // Ensure the implementation satisfies the expected interfaces.
 var (
 	_ resource.Resource = &ciliumNodeResource{}
-	//_ resource.ResourceWithConfigure   = &orderResource{}
-	//_ resource.ResourceWithImportState = &orderResource{}
 )
 
 // NewCiliumNodeResource is a helper function to simplify the provider implementation.
@@ -21,7 +19,7 @@ func NewCiliumNodeResource() resource.Resource {
 	return &ciliumNodeResource{}
 }
 
-// orderResourceModel maps the resource schema data.
+// ciliumNodeResourceModel maps the resource schema data.
 type ciliumNodeResourceModel struct {
 	ID types.String `tfsdk:"id"`
 }
@@ -43,7 +41,7 @@ func (r *ciliumNodeResource) Configure(_ context.Context, req resource.Configure
 
 // Metadata returns the resource type name.
 func (r *ciliumNodeResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_order"
+	resp.TypeName = req.ProviderTypeName + "_ciliumNode"
 }
 
 // Schema defines the schema for the resource.
