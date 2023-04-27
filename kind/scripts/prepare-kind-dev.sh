@@ -2,11 +2,6 @@
 #
 set -x
 
-function start-docker-desktop {
-  open -a Docker
-  sleep 20
-}
-
 function install-cluster-no-kubeproxy {
 echo "Installing 2x worker - 1x master Kind with Ingress ports exposed..."
 kind delete cluster
@@ -80,7 +75,6 @@ kubectl patch node kind-worker --type=json -p='[{"op": "add", "path": "/metadata
 }
 
 function main {
-# start-docker-desktop
  install-cluster-no-kubeproxy
  install-cilium
  install-ingress-nginx
